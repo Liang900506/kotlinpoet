@@ -84,7 +84,7 @@ class NameAllocator private constructor(
   /**
    * Return a new name using `suggestion` that will not be a Java identifier or clash with other
    * names. The returned value can be queried multiple times by passing `tag` to
-   * [NameAllocator.get].
+   * [NameAllocator.fromType].
    */
   @JvmOverloads fun newName(suggestion: String, tag: Any = UUID.randomUUID().toString()): String {
     var result = toJavaIdentifier(suggestion)

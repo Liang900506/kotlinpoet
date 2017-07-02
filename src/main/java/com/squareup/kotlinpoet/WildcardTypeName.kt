@@ -13,8 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@file:JvmName("WildcardTypeNames")
+
 package com.squareup.kotlinpoet
 
+import com.squareup.kotlinpoet.WildcardTypeName.Companion
 import java.io.IOException
 import java.lang.reflect.Type
 import java.lang.reflect.WildcardType
@@ -90,9 +93,6 @@ class WildcardTypeName private constructor(
       return supertypeOf(lowerBound.asTypeName())
     }
 
-    @JvmStatic @JvmName("get")
-    fun javax.lang.model.type.WildcardType.asWildcardTypeName() = get(this, mutableMapOf())
-
     internal fun get(
         mirror: javax.lang.model.type.WildcardType,
         typeVariables: MutableMap<TypeParameterElement, TypeVariableName>)
@@ -108,9 +108,6 @@ class WildcardTypeName private constructor(
       }
     }
 
-    @JvmStatic @JvmName("get")
-    fun WildcardType.asWildcardTypeName() = get(this, mutableMapOf())
-
     internal fun get(
         wildcardName: WildcardType,
         map: MutableMap<Type, TypeVariableName>)
@@ -121,3 +118,9 @@ class WildcardTypeName private constructor(
     }
   }
 }
+
+@JvmName("get")
+fun javax.lang.model.type.WildcardType.asWildcardTypeName() = Companion.get(this, mutableMapOf())
+
+@JvmName("get")
+fun WildcardType.asWildcardTypeName() = WildcardTypeName.get(this, mutableMapOf())
